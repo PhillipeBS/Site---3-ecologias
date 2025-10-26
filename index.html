@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As 3 Ecologias - Félix Guattari</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Header fixo */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #27ae60;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #2c3e50;
+        }
+
+        /* Container principal */
+        main {
+            margin-top: 80px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Seções */
+        .section {
+            display: none;
+            min-height: calc(100vh - 80px);
+            padding: 2rem 0;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Banner inicial */
+        .hero {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin: -2rem -2rem 3rem -2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #27ae60;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Cards das ecologias */
+        .ecology-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Grid de conteúdo */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .content-block {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-block:hover {
+            transform: translateY(-3px);
+        }
+
+        .content-block h3 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-block ul {
+            padding-left: 1.5rem;
+        }
+
+        .content-block li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seção de interconexão */
+        .interconnection {
+            background: linear-gradient(45deg, #f8f9fa, #e8f5e8);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .interconnection h2 {
+            color: #27ae60;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        /* Referências */
+        .references-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .references-list h3 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 0.5rem;
+        }
+
+        .references-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .references-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .references-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ecology-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .interconnection {
+                padding: 2rem 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0;
+            }
+
+            .navigation-buttons .page-indicator {
+                order: -1;
+            }
+
+            .nav-button {
+                width: 100%;
+                max-width: 200px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Títulos das seções */
+        .section-title {
+            text-align: center;
+            color: #27ae60;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #27ae60;
+            border-radius: 2px;
+        }
+
+        /* Botões de navegação */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding: 0 1rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+            background: linear-gradient(135deg, #229954, #27ae60);
+        }
+
+        .nav-button:active {
+            transform: translateY(0);
+        }
+
+        .nav-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-button .icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button:hover .icon.next {
+            transform: translateX(3px);
+        }
+
+        .nav-button:hover .icon.prev {
+            transform: translateX(-3px);
+        }
+
+        .page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #27ae60;
+            font-weight: 600;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Melhorias visuais modernas */
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #27ae60, #2ecc71, #58d68d);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08) 0%, transparent 50%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
+            animation: heroBackground 20s linear infinite;
+        }
+
+        @keyframes heroBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            animation: float-shapes 15s ease-in-out infinite;
+        }
+
+        .hero-shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        }
+
+        .hero-shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+        }
+
+        .hero-shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 30%;
+            right: 30%;
+            animation-delay: -10s;
+            background: linear-gradient(225deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+        }
+
+        .hero-shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -7s;
+            background: linear-gradient(315deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+        }
+
+        @keyframes float-shapes {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-20px) rotate(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-10px) rotate(180deg) scale(0.9);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translateY(-30px) rotate(270deg) scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 1px solid rgba(39, 174, 96, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #27ae60, #2ecc71, #58d68d);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .card {
+            position: relative;
+        }
+
+        .content-block {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 1px solid rgba(39, 174, 96, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #27ae60, #2ecc71);
+        }
+
+        .interconnection {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.9), rgba(232, 245, 232, 0.9));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(39, 174, 96, 0.2);
+        }
+
+        /* Animações aprimoradas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card:nth-child(2) .card-icon {
+            animation-delay: -1s;
+        }
+
+        .card:nth-child(3) .card-icon {
+            animation-delay: -2s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header fixo com navegação -->
+    <header id="header">
+        <nav>
+            <div class="logo">🌱 3 Ecologias</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showSection('home')" class="active">Início</a></li>
+                <li><a href="#" onclick="showSection('mental')">Ecologia Mental</a></li>
+                <li><a href="#" onclick="showSection('social')">Ecologia Social</a></li>
+                <li><a href="#" onclick="showSection('ambiental')">Ecologia Ambiental</a></li>
+                <li><a href="#" onclick="showSection('conclusao')">Conclusão</a></li>
+                <li><a href="#" onclick="showSection('referencias')">Referências</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Seção Home -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <div class="hero-shapes">
+                        <div class="hero-shape"></div>
+                        <div class="hero-shape"></div>
+                        <div class="hero-shape"></div>
+                        <div class="hero-shape"></div>
+                    </div>
+                    <div class="hero-content">
+                        <h1>As 3 Ecologias</h1>
+                        <p>Uma visão revolucionária de Félix Guattari sobre a interconexão entre mente, sociedade e ambiente</p>
+                    </div>
+                </div>
+
+                <div class="ecology-cards">
+                    <div class="card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Ecologia Mental</h3>
+                        <p>A ecologia da subjetividade humana, dos processos mentais e da produção de sentido individual e coletivo.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h3>Ecologia Social</h3>
+                        <p>As relações sociais, estruturas de poder, instituições e os modos de organização da vida em sociedade.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🌍</div>
+                        <h3>Ecologia Ambiental</h3>
+                        <p>A relação com o meio ambiente natural, a sustentabilidade e o equilíbrio dos ecossistemas.</p>
+                    </div>
+                </div>
+
+                <div class="interconnection">
+                    <h2>Interconexão Fundamental</h2>
+                    <p>Para Guattari, essas três ecologias são inseparáveis. A crise ecológica atual não pode ser resolvida apenas com medidas técnicas ou políticas isoladas, mas requer uma transformação profunda que integre a dimensão mental, social e ambiental da existência humana.</p>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button disabled" id="prevBtn-home">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>1</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button" id="nextBtn-home" onclick="navigateToNext()">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Ecologia Mental -->
+        <section id="mental" class="section">
+            <div class="container">
+                <h2 class="section-title">Ecologia Mental</h2>
+                
+                <div class="content-grid">
+                    <div class="content-block">
+                        <h3>Definição</h3>
+                        <p>A ecologia mental refere-se aos processos de subjetivação, à produção de subjetividade e aos modos como construímos nossa realidade psíquica. Envolve a relação entre o inconsciente, a linguagem, os afetos e as formas de percepção do mundo.</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Problemas Identificados</h3>
+                        <ul>
+                            <li>Padronização da subjetividade pela mídia de massa</li>
+                            <li>Empobrecimento da vida mental e criativa</li>
+                            <li>Alienação e perda de singularidade</li>
+                            <li>Consumismo como forma de subjetivação</li>
+                            <li>Depressão e ansiedade como sintomas sociais</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Exemplos Práticos</h3>
+                        <ul>
+                            <li>Influência das redes sociais na autoestima</li>
+                            <li>Publicidade moldando desejos e necessidades</li>
+                            <li>Educação padronizada limitando a criatividade</li>
+                            <li>Trabalho repetitivo empobrecendo a experiência</li>
+                            <li>Cultura do espetáculo alterando a percepção</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Soluções Propostas</h3>
+                        <ul>
+                            <li>Desenvolvimento da singularidade pessoal</li>
+                            <li>Práticas de autoconhecimento e reflexão</li>
+                            <li>Arte e criatividade como resistência</li>
+                            <li>Educação libertadora e crítica</li>
+                            <li>Cultivo de relações autênticas</li>
+                            <li>Questionamento dos padrões impostos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button" id="prevBtn-mental" onclick="navigateToPrev()">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>2</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button" id="nextBtn-mental" onclick="navigateToNext()">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Ecologia Social -->
+        <section id="social" class="section">
+            <div class="container">
+                <h2 class="section-title">Ecologia Social</h2>
+                
+                <div class="content-grid">
+                    <div class="content-block">
+                        <h3>Definição</h3>
+                        <p>A ecologia social aborda as relações humanas, as estruturas sociais, econômicas e políticas que organizam a vida coletiva. Examina como as instituições, o poder e as formas de organização social afetam tanto a subjetividade quanto o meio ambiente.</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Problemas Sociais</h3>
+                        <ul>
+                            <li>Desigualdade social e concentração de renda</li>
+                            <li>Sistemas autoritários e falta de participação</li>
+                            <li>Individualismo excessivo e fragmentação social</li>
+                            <li>Exploração do trabalho e alienação</li>
+                            <li>Discriminação e exclusão social</li>
+                            <li>Consumismo desenfreado</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Exemplos Concretos</h3>
+                        <ul>
+                            <li>Gentrificação urbana e exclusão social</li>
+                            <li>Precarização do trabalho e gig economy</li>
+                            <li>Polarização política e intolerância</li>
+                            <li>Isolamento social e solidão urbana</li>
+                            <li>Consumo como status social</li>
+                            <li>Violência estrutural e institucional</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Transformações Necessárias</h3>
+                        <ul>
+                            <li>Democracia participativa e autogestão</li>
+                            <li>Economia solidária e cooperativismo</li>
+                            <li>Redução das desigualdades sociais</li>
+                            <li>Fortalecimento de comunidades locais</li>
+                            <li>Educação para a cidadania ativa</li>
+                            <li>Respeito à diversidade e pluralidade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button" id="prevBtn-social" onclick="navigateToPrev()">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>3</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button" id="nextBtn-social" onclick="navigateToNext()">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Ecologia Ambiental -->
+        <section id="ambiental" class="section">
+            <div class="container">
+                <h2 class="section-title">Ecologia Ambiental</h2>
+                
+                <div class="content-grid">
+                    <div class="content-block">
+                        <h3>Definição</h3>
+                        <p>A ecologia ambiental trata da relação entre os seres humanos e o meio ambiente natural. Para Guattari, não se trata apenas de preservação, mas de repensar fundamentalmente nossa relação com a natureza e os recursos do planeta.</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Problemas Ambientais</h3>
+                        <ul>
+                            <li>Mudanças climáticas e aquecimento global</li>
+                            <li>Desmatamento e perda de biodiversidade</li>
+                            <li>Poluição do ar, água e solo</li>
+                            <li>Esgotamento de recursos naturais</li>
+                            <li>Produção excessiva de resíduos</li>
+                            <li>Agricultura industrial predatória</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Exemplos Práticos</h3>
+                        <ul>
+                            <li>Fast fashion e obsolescência programada</li>
+                            <li>Agronegócio e uso de agrotóxicos</li>
+                            <li>Urbanização descontrolada</li>
+                            <li>Transporte individual e emissões</li>
+                            <li>Consumo de energia não renovável</li>
+                            <li>Desperdício alimentar</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Soluções Integradas</h3>
+                        <ul>
+                            <li>Transição para energias renováveis</li>
+                            <li>Economia circular e sustentável</li>
+                            <li>Agricultura ecológica e permacultura</li>
+                            <li>Mobilidade urbana sustentável</li>
+                            <li>Consumo consciente e minimalismo</li>
+                            <li>Restauração de ecossistemas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button" id="prevBtn-ambiental" onclick="navigateToPrev()">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>4</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button" id="nextBtn-ambiental" onclick="navigateToNext()">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Conclusão -->
+        <section id="conclusao" class="section">
+            <div class="container">
+                <h2 class="section-title">Conclusão</h2>
+                
+                <div class="ecology-cards">
+                    <div class="card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Mental</h3>
+                        <p>Transformação da subjetividade através da criatividade, singularidade e resistência aos padrões dominantes.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h3>Social</h3>
+                        <p>Construção de relações mais justas, democráticas e solidárias, baseadas na participação e cooperação.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🌍</div>
+                        <h3>Ambiental</h3>
+                        <p>Estabelecimento de uma relação harmoniosa e sustentável com o meio ambiente e os recursos naturais.</p>
+                    </div>
+                </div>
+
+                <div class="interconnection">
+                    <h2>A Interconexão Fundamental</h2>
+                    <p>A genialidade da proposta de Guattari está em mostrar que essas três dimensões são inseparáveis. Uma verdadeira transformação ecológica deve acontecer simultaneamente nos três registros: não podemos ter um ambiente saudável sem relações sociais justas, nem relações sociais justas sem subjetividades livres e criativas.</p>
+                    <br>
+                    <p>A crise ecológica atual é, portanto, também uma crise da subjetividade e das relações sociais. A solução passa por uma revolução molecular que transforme simultaneamente nossa relação conosco mesmos, com os outros e com o planeta.</p>
+                    <br>
+                    <p><strong>O futuro depende de nossa capacidade de pensar e agir de forma integrada, reconhecendo que somos parte de um sistema complexo onde tudo está interconectado.</strong></p>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button" id="prevBtn-conclusao" onclick="navigateToPrev()">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>5</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button" id="nextBtn-conclusao" onclick="navigateToNext()">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Referências -->
+        <section id="referencias" class="section">
+            <div class="container">
+                <h2 class="section-title">Referências</h2>
+                
+                <div class="content-grid">
+                    <div class="references-list">
+                        <h3>Obra Principal</h3>
+                        <ul>
+                            <li>GUATTARI, Félix. <em>As Três Ecologias</em>. Campinas: Papirus, 1990.</li>
+                            <li>GUATTARI, Félix. <em>Les Trois Écologies</em>. Paris: Galilée, 1989.</li>
+                        </ul>
+                    </div>
+
+                    <div class="references-list">
+                        <h3>Obras Complementares</h3>
+                        <ul>
+                            <li>GUATTARI, Félix; DELEUZE, Gilles. <em>Mil Platôs</em>. São Paulo: Ed. 34, 1995-1997.</li>
+                            <li>GUATTARI, Félix. <em>Caosmose: um novo paradigma estético</em>. São Paulo: Ed. 34, 1992.</li>
+                            <li>GUATTARI, Félix. <em>Revolução Molecular</em>. São Paulo: Brasiliense, 1987.</li>
+                        </ul>
+                    </div>
+
+                    <div class="references-list">
+                        <h3>Estudos e Comentários</h3>
+                        <ul>
+                            <li>LAZZARATO, Maurizio. <em>Signos, Máquinas, Subjetividades</em>. São Paulo: Sesc/N-1, 2014.</li>
+                            <li>ROLNIK, Suely. <em>Cartografia Sentimental</em>. Porto Alegre: Sulina/UFRGS, 2007.</li>
+                            <li>PELBART, Peter Pál. <em>Vida Capital: ensaios de biopolítica</em>. São Paulo: Iluminuras, 2003.</li>
+                        </ul>
+                    </div>
+
+                    <div class="references-list">
+                        <h3>Recursos Online</h3>
+                        <ul>
+                            <li>Revista Lugar Comum - Estudos de mídia, cultura e democracia</li>
+                            <li>Portal Rizoma - Filosofia contemporânea e esquizoanálise</li>
+                            <li>Biblioteca Virtual de Filosofia Contemporânea</li>
+                            <li>Arquivo Félix Guattari - Documentos e textos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-button" id="prevBtn-referencias" onclick="navigateToPrev()">
+                        <span class="icon prev">←</span>
+                        Anterior
+                    </button>
+                    <div class="page-indicator">
+                        <span>6</span> / <span>6</span>
+                    </div>
+                    <button class="nav-button disabled" id="nextBtn-referencias">
+                        Próxima
+                        <span class="icon next">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Variáveis globais
+        let currentSection = 'home';
+        const sections = ['home', 'mental', 'social', 'ambiental', 'conclusao', 'referencias'];
+        const sectionTitles = {
+            'home': 'Início',
+            'mental': 'Ecologia Mental', 
+            'social': 'Ecologia Social',
+            'ambiental': 'Ecologia Ambiental',
+            'conclusao': 'Conclusão',
+            'referencias': 'Referências'
+        };
+
+        // Função principal para mostrar seções
+        function showSection(sectionId) {
+            // Esconder todas as seções
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar seção selecionada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Atualizar link ativo no menu
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Encontrar e ativar o link correspondente
+            const activeLink = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Fechar menu mobile se estiver aberto
+            document.getElementById('navLinks').classList.remove('active');
+            
+            // Scroll suave para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Atualizar seção atual
+            currentSection = sectionId;
+        }
+
+        // Função para navegar para a próxima seção
+        function navigateToNext() {
+            const currentIndex = sections.indexOf(currentSection);
+            if (currentIndex < sections.length - 1) {
+                showSection(sections[currentIndex + 1]);
+            }
+        }
+
+        // Função para navegar para a seção anterior
+        function navigateToPrev() {
+            const currentIndex = sections.indexOf(currentSection);
+            if (currentIndex > 0) {
+                showSection(sections[currentIndex - 1]);
+            }
+        }
+
+        // Toggle do menu mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Navegação por teclado (setas esquerda e direita)
+        document.addEventListener('keydown', function(event) {
+            const currentIndex = sections.indexOf(currentSection);
+            
+            if (event.key === 'ArrowLeft' && currentIndex > 0) {
+                showSection(sections[currentIndex - 1]);
+            } else if (event.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+                showSection(sections[currentIndex + 1]);
+            }
+        });
+
+        // Efeito de sombra no header ao fazer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animação de entrada para elementos quando ficam visíveis
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observar cards e blocos de conteúdo
+            document.querySelectorAll('.card, .content-block').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Inicializar observador quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            observeElements();
+            
+            // Garantir que a seção home esteja ativa inicialmente
+            showSection('home');
+        });
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'994c5ab4c2811433',t:'MTc2MTUwNjg4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
